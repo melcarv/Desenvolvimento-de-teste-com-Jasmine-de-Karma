@@ -1,25 +1,27 @@
-import { Injectable } from "@angular/core";
-import {v4 as uuidv4} from 'uuid';
+import { Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UniqueIdService {
-    private numberOfGeneratedIds = 0;
 
-    public generateUniqueIdWithPrefix(prefix: string): string {
-        if (!prefix) {
-            throw Error("Prefix can not be empty");          
-        }
+  private numberOfGeneratedIds = 0;
 
-        const uniqueId = this.generateUniqueId();
-        
-        this.numberOfGeneratedIds++;
-        return `${prefix}-${uniqueId}`;
-    }
+  private validId = /^[A-Za-z]+[\w\-\:\.]*$/;
 
-    public getNumberOfGeneratedUniqueIds(): number {
-        return this.numberOfGeneratedIds;
+  public generateUniqueIdWithPrefix(prefix: string): string {
+    if (!prefix || !this.validId.test(prefix)) {
+      throw Error('Prefix can not be empty');
     }
-    private generateUniqueId(): string {
-        return uuidv4();
-    }
+    const uniqueId = this.generateUniqueId();
+    this.numberOfGeneratedIds++;
+    return `${prefix}-${uniqueId}`;
+  }
+
+  public getNumberOfGeneratedUniqueIds(): number {
+    return this.numberOfGeneratedIds;
+  }
+
+  private generateUniqueId(): string {
+    return uuidv4();
+  }
 }
