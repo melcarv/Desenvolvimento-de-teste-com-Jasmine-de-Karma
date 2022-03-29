@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste</title>
-</head>
-<body>
-    <div class="like-widget-container" (click)="like()">
-        <fa-icon>
-            [icon]="fonts.faThumbsUp"
-        </fa-icon>
-        <span class="like-counter">
-            {{ likes }}
-        </span>
-    </div>
-</body>
-</html>
+<div class="like-widget-container"
+  (click)="like()"
+  (keyup.enter)="like()">
+  <fa-icon
+    role="button"
+    tabindex="0"
+    [attr.aria-describedby]="id"
+    size="1x"
+    [icon]="fonts.faThumbsUp">
+  </fa-icon>
+  <span
+    [attr.id]="id"
+    [attr.aria-label]="likes + ': people liked'"
+    class="like-counter"
+    aria-live="true"
+    aria-atomic="true">
+    {{ likes }}
+  </span>
+</div>
